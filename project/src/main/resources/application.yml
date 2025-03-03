@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: blog-sharing-project
+  profiles:
+    active: dev
+
+server:
+  port: 9090
+  servlet:
+    context-path: /bloggang
