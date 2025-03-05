@@ -1,13 +1,14 @@
 package blog_sharing_web.project.user;
 
 import blog_sharing_web.project.abstractPack.AbstractEntity;
+import blog_sharing_web.project.role.Role;
 import blog_sharing_web.project.user_profile.UserProfile;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -22,7 +23,7 @@ public class User extends AbstractEntity<Long> {
     @Column(name="username", nullable=false, unique = true, length=50)
     String username;
 
-    @Column(name="password",nullable=false,length=255)
+    @Column(name="password",nullable=false)
     String password_hash;
 
     @Column(name="email", nullable=false ,unique = true ,length=100)
@@ -30,4 +31,12 @@ public class User extends AbstractEntity<Long> {
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
     UserProfile user_profile;
+
+    @ManyToMany
+    @JoinTable(
+            name = "user_role",
+            joinColumns = @JoinColumn(name="user_id"),
+            inverseJoinColumns = @JoinColumn(name="role_id")
+    )
+    Set<Role> roles = new HashSet<>();
 }
