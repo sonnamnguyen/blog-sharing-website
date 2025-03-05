@@ -1,15 +1,15 @@
-package blog_sharing_web.project.react;
+package blog_sharing_web.project.report;
 
 import blog_sharing_web.project.abstractPack.AbstractEntity;
-import blog_sharing_web.project.emoji.Emoji;
 import blog_sharing_web.project.post.Post;
+import blog_sharing_web.project.rule.Rule;
 import blog_sharing_web.project.user.User;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -18,11 +18,7 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @FieldDefaults(level= AccessLevel.PRIVATE)
 @Builder
-public class React extends AbstractEntity<Long> {
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "emoji_id")
-    Emoji emoji;
+public class Report extends AbstractEntity<Integer> {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
@@ -31,4 +27,12 @@ public class React extends AbstractEntity<Long> {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "post_id")
     Post post;
+
+    @ManyToMany
+    @JoinTable(
+            name = "report_rule",
+            joinColumns = @JoinColumn(name="report_id"),
+            inverseJoinColumns = @JoinColumn(name="rule_id")
+    )
+    Set<Rule> rules = new HashSet<>();
 }

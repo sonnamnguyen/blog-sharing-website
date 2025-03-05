@@ -1,7 +1,7 @@
-package blog_sharing_web.project.react;
+package blog_sharing_web.project.bookmark;
+
 
 import blog_sharing_web.project.abstractPack.AbstractEntity;
-import blog_sharing_web.project.emoji.Emoji;
 import blog_sharing_web.project.post.Post;
 import blog_sharing_web.project.user.User;
 import jakarta.persistence.CascadeType;
@@ -18,11 +18,7 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @FieldDefaults(level= AccessLevel.PRIVATE)
 @Builder
-public class React extends AbstractEntity<Long> {
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "emoji_id")
-    Emoji emoji;
+public class Bookmark extends AbstractEntity<Long> {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")

@@ -1,6 +1,14 @@
 package blog_sharing_web.project.user;
 
 import blog_sharing_web.project.abstractPack.AbstractEntity;
+import blog_sharing_web.project.bookmark.Bookmark;
+import blog_sharing_web.project.comment.Comment;
+import blog_sharing_web.project.message.Message;
+import blog_sharing_web.project.notification.Notification;
+import blog_sharing_web.project.post.Post;
+import blog_sharing_web.project.react.React;
+import blog_sharing_web.project.relationship.Relationship;
+import blog_sharing_web.project.report.Report;
 import blog_sharing_web.project.role.Role;
 import blog_sharing_web.project.user_profile.UserProfile;
 import jakarta.persistence.*;
@@ -17,7 +25,6 @@ import java.util.Set;
 @NoArgsConstructor
 @FieldDefaults(level= AccessLevel.PRIVATE)
 @Builder
-
 public class User extends AbstractEntity<Long> {
 
     @Column(name="username", nullable=false, unique = true, length=50)
@@ -29,8 +36,42 @@ public class User extends AbstractEntity<Long> {
     @Column(name="email", nullable=false ,unique = true ,length=100)
     String email;
 
+    @Column(name="user_status")
+    @Enumerated(EnumType.STRING)
+    User_Status userStatus;
+
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
     UserProfile user_profile;
+
+    @OneToMany(mappedBy = "creator")
+    Set<Post> posts = new HashSet<>();
+
+    @OneToMany(mappedBy = "user")
+    Set<Comment> comments = new HashSet<>();
+
+    @OneToMany(mappedBy = "user")
+    Set<React> reacts = new HashSet<>();
+
+    @OneToMany(mappedBy = "user")
+    Set<Bookmark> bookmarks = new HashSet<>();
+
+    @OneToMany(mappedBy = "user")
+    Set<Notification> notifications = new HashSet<>();
+
+    @OneToMany(mappedBy = "user")
+    Set<Relationship> relationships = new HashSet<>();
+
+    @OneToMany(mappedBy = "user2")
+    Set<Relationship> relationshipWith = new HashSet<>();
+
+    @OneToMany(mappedBy = "sender")
+    Set<Message> messagesSend = new HashSet<>();
+
+    @OneToMany(mappedBy = "receiver")
+    Set<Message> messagesReceive = new HashSet<>();
+
+    @OneToMany(mappedBy = "user")
+    Set<Report> reports = new HashSet<>();
 
     @ManyToMany
     @JoinTable(

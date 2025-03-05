@@ -27,9 +27,9 @@ public class Role extends AbstractEntity<Integer> {
 
     @ManyToMany
     @JoinTable(
-    name = "role_permission",
-    joinColumns = @JoinColumn(name = "role_id"),
-    inverseJoinColumns = @JoinColumn(name = "permission_id")
+            name = "role_permission",
+            joinColumns = @JoinColumn(name = "role_id"),
+            inverseJoinColumns = @JoinColumn(name = "permission_id")
     )
     Set<Permission> permissions = new HashSet<>();
 }
