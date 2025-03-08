@@ -3,6 +3,9 @@ spring:
     activate:
       on-profile: dev
 
+  main:
+    allow-bean-definition-overriding: true
+
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/bloggang
@@ -17,12 +20,31 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         default_schema: public
 
-  autoconfigure:
-    exclude: org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
+#  autoconfigure:
+#    exclude: org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
 
   servlet:
     multipart:
       max-file-size: 100MB
       max-request-size: 200MB
+
+#logging:
+#  level:
+#    root: INFO
+#    org.springframework: DEBUG
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
+  paths-to-match: /**
+openapi:
+  service:
+    api-docs: bloggang-api
+    title: Backend API Document
+    version: v1.1.0
+    server: http://localhost:${server.port}
 
 
